@@ -1,7 +1,7 @@
-<h5>Add a new Topic</h5>
+<h5>Edit Topic</h5>
 
 <%= render "_form.html",
-  path: topic_path(@conn, :create),
+  path: topic_path(@conn,:update, @topic),
   conn: @conn,
   changeset: @changeset
 %>
