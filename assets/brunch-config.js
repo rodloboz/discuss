@@ -20,7 +20,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: "css/app.css",
+      order: {
+        after: ["priv/static/css/app.scss"]
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -49,7 +52,11 @@ exports.config = {
       ignore: [/vendor/]
     },
     sass: {
-      mode: "native"
+      mode: "native",
+      options: {
+        includePaths: ["node_modules/materialize-css/sass"],
+        precision: 8
+      }
     }
   },
 
@@ -60,6 +67,9 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    globals: {
+      materialize: 'materialize-css'
+    }
   }
 };
