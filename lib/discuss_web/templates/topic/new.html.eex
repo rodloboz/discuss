@@ -1,1 +1,7 @@
-<h1>Create New Topic</h1>
+<h1>Add a new Topic</h1>
+
+<%= render "_form.html",
+  path: topic_path(@conn, :create),
+  conn: @conn,
+  changeset: @changeset
+%>
