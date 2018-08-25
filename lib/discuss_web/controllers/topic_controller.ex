@@ -22,9 +22,7 @@ defmodule DiscussWeb.TopicController do
       {:ok, topic} ->
         redirect(conn, to: topic_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", %{
-          changeset: changeset,
-        })
+        render conn, "new.html", changeset: changeset
     end
   end
 
