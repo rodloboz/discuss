@@ -1,5 +1,6 @@
 defmodule DiscussWeb.Router do
   use DiscussWeb, :router
+  require Ueberauth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -18,6 +19,14 @@ defmodule DiscussWeb.Router do
 
     get "/", TopicController, :index
     resources "/topics", TopicController, only: [:index, :new, :create, :edit, :update, :delete]
+  end
+
+  scope "/auth", DiscussWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    delete "/logout", AuthController, :delete
   end
 
   # Other scopes may use custom stacks.
