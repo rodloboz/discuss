@@ -5,7 +5,7 @@ defmodule DiscussWeb.AuthController do
   alias Discuss.User
   alias Discuss.Repo
 
-  require IEx
+  # require IEx
   # IEx.pry
 
   # def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
@@ -27,6 +27,13 @@ defmodule DiscussWeb.AuthController do
     changeset = User.changeset(%User{}, user_params)
 
     sign_in(conn, changeset)
+  end
+
+  def delete(conn, _params) do
+    conn
+    |> put_flash(:info, "You have been logged out!")
+    |> configure_session(drop: true)
+    |> redirect(to: "/")
   end
 
   defp sign_in(conn, changeset) do
