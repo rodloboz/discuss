@@ -8,12 +8,6 @@ defmodule DiscussWeb.AuthController do
   # require IEx
   # IEx.pry
 
-  # def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
-  #   conn
-  #   |> put_flash(:error, "Failed to authenticate.")
-  #   |> redirect(to: "/")
-  # end
-
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     name  = String.split(auth.info.name, " ")
     user_params = %{
@@ -48,7 +42,6 @@ defmodule DiscussWeb.AuthController do
         |> put_flash(:error, "Error signing in")
         |> redirect(to: "/")
     end
-
   end
 
   defp insert_or_update_user(changeset) do

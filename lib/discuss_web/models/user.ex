@@ -1,5 +1,6 @@
 defmodule Discuss.User do
   use DiscussWeb, :model
+  alias Discuss.Topic
 
   schema "users" do
     field :first_name, :string
@@ -9,6 +10,8 @@ defmodule Discuss.User do
     field :github_avatar, :string
     field :provider, :string
     field :token, :string
+
+    has_many :topics, Topic
 
     timestamps()
   end

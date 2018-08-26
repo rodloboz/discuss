@@ -5,6 +5,11 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Topic
   alias Discuss.Repo
 
+  require IEx
+
+  plug Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+  plug :check_topic_owner when action in [:edit, :update, :delete]
+
   def index(conn, _params) do
     topics = Repo.all(Topic)
     render conn, "index.html", topics: topics
@@ -16,7 +21,14 @@ defmodule DiscussWeb.TopicController do
   end
 
   def create(conn, %{"topic" => topic_params}) do
+    topic_params = topic_params
+      |> Map.put("user_id", conn.assigns.current_user.id)
+
     changeset = Topic.changeset(%Topic{}, topic_params)
+
+    # changeset = conn.assigns.current_user
+    #   |> Repo.build_assoc(:topics)
+    #   |> Topic.changeset(topic_params)
 
     case Repo.insert(changeset) do
       {:ok, _topic} ->
@@ -57,6 +69,19 @@ defmodule DiscussWeb.TopicController do
     conn
     |> put_flash(:info, "Topic Deleted")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+  def check_topic_owner(conn, _params) do
+    %{params: %{"id" => id}} = conn
+
+    if Repo.get(Topic, id).user_id == conn.assigns.current_user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You don't have permission to do that")
+      |> redirect(to: topic_path(conn, :index))
+      |> halt()
+    end
   end
 
   # defp render_form(conn, action, announcement) do
