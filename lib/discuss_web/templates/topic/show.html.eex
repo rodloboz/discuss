@@ -1,0 +1,8 @@
+<h5><%= @topic.title %></h3>
+
+<div class="input-field">
+  <textarea class="materialize-textarea"></textarea>
+  <button class="btn">Add Comment</button>
+</div>
+
+<div id="comments" data-topic_id="<%= @topic.id %>"></div>

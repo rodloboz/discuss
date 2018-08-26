@@ -1,6 +1,6 @@
 defmodule Discuss.User do
   use DiscussWeb, :model
-  alias Discuss.Topic
+  alias Discuss.{Topic, Comment}
 
   schema "users" do
     field :first_name, :string
@@ -12,6 +12,7 @@ defmodule Discuss.User do
     field :token, :string
 
     has_many :topics, Topic
+    has_many :comments, Comment
 
     timestamps()
   end

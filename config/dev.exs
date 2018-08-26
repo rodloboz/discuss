@@ -54,5 +54,5 @@ config :discuss, Discuss.Repo,
   username: "ruifreitas",
   password: "",
   database: "discuss_dev",
-  hostname: "localhost",
+  hostname: "lvh.me",
   pool_size: 10

@@ -19,7 +19,7 @@ defmodule DiscussWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", TopicController, :index
-    resources "/topics", TopicController, only: [:index, :new, :create, :edit, :update, :delete]
+    resources "/topics", TopicController, only: [:index, :show, :new, :create, :edit, :update, :delete]
   end
 
   scope "/auth", DiscussWeb do

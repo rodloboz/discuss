@@ -16,8 +16,8 @@
   <body>
     <%= render DiscussWeb.SharedView, "_navbar.html", assigns %>
 
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <p class="alert alert-info light-blue lighten-3" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-danger red lighten-3" role="alert"><%= get_flash(@conn, :error) %></p>
 
     <div class="container">
       <main role="main">
