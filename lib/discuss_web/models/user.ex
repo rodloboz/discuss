@@ -1,8 +1,6 @@
 defmodule Discuss.User do
   use DiscussWeb, :model
 
-  alias Ueberauth.Auth
-
   schema "users" do
     field :first_name, :string
     field :last_name, :string

@@ -3,9 +3,9 @@ defmodule DiscussWeb.AuthController do
   plug Ueberauth
 
   alias Discuss.User
-  alias Ueberauth.Strategy.Helpers
+  alias Discuss.Repo
 
-  # require IEx
+  require IEx
   # IEx.pry
 
   # def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
@@ -21,22 +21,27 @@ defmodule DiscussWeb.AuthController do
       last_name: Enum.at(name, -1),
       email: auth.info.email,
       github_avatar: auth.info.image,
-      provider: auth.provider,
+      provider: Atom.to_string(auth.provider),
       token: auth.credentials.token
     }
     changeset = User.changeset(%User{}, user_params)
 
+    sign_in(conn, changeset)
+  end
+
+  defp sign_in(conn, changeset) do
     case insert_or_update_user(changeset) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully authenticated.")
-        |> put_session(:current_user, user)
+        |> put_session(:user_id, user.id) #(:current_user, user)
         |> redirect(to: "/")
-      {:error, reason} ->
+      {:error, _reason} ->
         conn
-        |> put_flash(:error, reason)
+        |> put_flash(:error, "Error signing in")
         |> redirect(to: "/")
     end
+
   end
 
   defp insert_or_update_user(changeset) do
