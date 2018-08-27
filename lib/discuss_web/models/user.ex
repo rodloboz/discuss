@@ -2,6 +2,8 @@ defmodule Discuss.User do
   use DiscussWeb, :model
   alias Discuss.{Topic, Comment}
 
+  @derive {Poison.Encoder, only: [:username, :github_avatar]}
+
   schema "users" do
     field :first_name, :string
     field :last_name, :string

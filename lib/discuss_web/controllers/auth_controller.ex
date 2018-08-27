@@ -16,7 +16,8 @@ defmodule DiscussWeb.AuthController do
       email: auth.info.email,
       github_avatar: auth.info.image,
       provider: Atom.to_string(auth.provider),
-      token: auth.credentials.token
+      token: auth.credentials.token,
+      username: auth.info.nickname
     }
     changeset = User.changeset(%User{}, user_params)
 
